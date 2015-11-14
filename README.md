@@ -17,6 +17,12 @@ Put `yt-tooltip.min.js` and `yt-tooltip.min.css` in your page.
 
 ### Usage
 
+Your app:
+
+```js
+angular.module('App', ['yt.tooltip']);
+```
+
 ``` html
 <span yt-tooltip tooltip-html="hello {{ name }}">hover me</span>
 ```
