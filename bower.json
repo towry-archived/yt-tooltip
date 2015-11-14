@@ -1,6 +1,6 @@
 {
   "name": "yt-tooltip",
-  "description": "tooltip component for angular",
+  "description": "tooltip directive for angular app",
   "main": ["dist/yt-tooltip.min.js", "dist/yt-tooltip.min.css"],
   "authors": [
     "Towry Wang"
