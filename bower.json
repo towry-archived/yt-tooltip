@@ -1,0 +1,27 @@
+{
+  "name": "yt-tooltip",
+  "description": "tooltip component for angular",
+  "main": ["dist/yt-tooltip.min.js", "dist/yt-tooltip.min.css"],
+  "authors": [
+    "Towry Wang"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "angular",
+    "web",
+    "yt"
+  ],
+  "moduleType": [],
+  "homepage": "http://towry.github.io/yt-tooltip",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "assets"
+  ],
+  "dependencies": {
+    "angular": "~1.4.7"
+  }
+}

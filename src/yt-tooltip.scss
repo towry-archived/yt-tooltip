@@ -1,0 +1,35 @@
+$hover-border-width: 7px;
+
+.yt--tooltip {
+  position: absolute;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 15px;
+  text-align: center;
+  transition: opacity 0.4s ease;
+  z-index: 999;
+
+  .tooltip-content {
+    word-break: keep-all;
+    white-space: nowrap;
+    position: relative;
+    text-align: left;
+    left: -50%;
+    transition: all .5s ease;
+    background: #424242;
+    color: #fff;
+    padding: 8px 10px;
+    border-radius: 4px;
+    display: inline-block;
+    &:before {
+      content: '';
+      position: absolute;
+      bottom: -($hover-border-width);
+      left: 50%;
+      margin-left: -($hover-border-width);
+      border-left: $hover-border-width solid transparent;
+      border-right: $hover-border-width solid transparent;
+      border-top: $hover-border-width solid #424242;
+    }
+  }
+}

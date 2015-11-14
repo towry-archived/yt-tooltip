@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+  <title>yt-tooltip</title>
+  <link rel="stylesheet" type="text/css" href="./assets/css/all.css" />
+  <link rel="stylesheet" type="text/css" href="./assets/css/app.css" />
+</head>
+<body ng-controller="myCtrl" ng-cloak>
+  <h1>yt-tooltip</h1>
+  <div>
+    <a href="#" yt-tooltip tooltip-text="name">hover me</a>
+    <a href="#" yt-tooltip tooltip-html="what the fuck, {{ name }}" class="tooltip-holder">fooo me</a>
+  </div>
+
+  <script src="./assets/js/bundle.js"></script>
+  <script src="./assets/js/app.js"></script>
+</body>
+</html>
