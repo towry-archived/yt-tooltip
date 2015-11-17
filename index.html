@@ -39,6 +39,7 @@
       <div ng-app="YourApp" ng-cloak>
             <div class="hover-list" ng-controller="myCtrl">
                   <a href="#" ng-repeat="item in list track by $index" yt-tooltip tooltip-html="Hello <b>{{ item }}</b>">Hover{{ $index + 1 }}</a>
+                  <a href="#" yt-tooltip tooltip-side="bottom" tooltip-text="Bottom">Hover4</a>
             </div>
       </div>
 
