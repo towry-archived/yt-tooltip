@@ -8,7 +8,7 @@
 
   angular.module('yt.tooltip', [])
 
-    .directive('ytTooltip', ["$parse", "$window", "$compile", function ($parse, $window, $compile) {
+    .directive('ytTooltip', ["$window", "$compile", function ($window, $compile) {
 
       var options = {
         klass: 'yt--tooltip',
@@ -71,7 +71,7 @@
         link: function (scope, aElement, aAttrs) {
           var isBottom = aAttrs.tooltipSide && aAttrs.tooltipSide === 'bottom';
           var ele = aElement[0];
-          var tooltipText = $parse(aAttrs.tooltipText)(scope.$parent || scope);
+          var tooltipText = aAttrs.tooltipText;
           var tooltipHtml = htmlWrap(aAttrs.tooltipHtml);
           if (tooltipHtml) {
             tooltipHtml = $compile(tooltipHtml)(scope.$parent || scope);
