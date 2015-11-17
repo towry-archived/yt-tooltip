@@ -27,3 +27,8 @@
       border-left: 7px solid transparent;
       border-right: 7px solid transparent;
       border-top: 7px solid #424242; }
+  .yt--tooltip.bottom .tooltip-content:before {
+    top: -7px !important;
+    border-bottom: 7px solid #424242 !important;
+    border-top: 0 !important;
+    bottom: auto !important; }
