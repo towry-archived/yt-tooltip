@@ -50,14 +50,14 @@ gulp.task('css', function () {
 gulp.task('connect', function () {
   connect.server({
     port: port, 
-    root: './',
+    root: [__dirname],
     livereload: reload
   });
 });
 
 gulp.task('watch', function () {
-  gulp.watch(paths.scripts, ['scripts']);
-  gulp.watch(paths.sass, ['sass']);
+  gulp.watch(paths.scripts, ['dev:scripts']);
+  gulp.watch(paths.sass, ['dev:sass']);
   gulp.watch(paths.html, ['html']);
 });
 
@@ -92,4 +92,5 @@ var TASKS = [
   'dev:sass',
   'css'
 ];
+
 gulp.task('default', TASKS);

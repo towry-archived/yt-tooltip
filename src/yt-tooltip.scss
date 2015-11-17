@@ -32,4 +32,13 @@ $hover-border-width: 7px;
       border-top: $hover-border-width solid #424242;
     }
   }
+
+  &.bottom {
+    .tooltip-content:before {
+      top: -($hover-border-width) !important;
+      border-bottom: $hover-border-width solid #424242 !important;
+      border-top: 0 !important;
+      bottom: auto !important;
+    }
+  }
 }

@@ -61,13 +61,7 @@
         }());
       }
 
-      var ajustTooltipStyle = function (variations) {
-        for (var i in variations) {
-          tooltipElement.style[i] = variations[i];
-        }
-      };
-
-      ajustTooltipStyle({display: 'none'});
+      ajustTooltipStyle(tooltipElement, {display: 'none'});
 
       return {
         replace: false,
@@ -75,6 +69,7 @@
         scope: true,
 
         link: function (scope, aElement, aAttrs) {
+          var isBottom = aAttrs.tooltipSide && aAttrs.tooltipSide === 'bottom';
           var ele = aElement[0];
           var tooltipText = $parse(aAttrs.tooltipText)(scope.$parent || scope);
           var tooltipHtml = htmlWrap(aAttrs.tooltipHtml);
@@ -101,36 +96,32 @@
             // change tooltip content
             changeTooltipContent(tooltipText || tooltipHtml && tooltipHtml.innerHTML, !tooltipText && tooltipHtml);
 
-            ajustTooltipStyle({
+            ajustTooltipStyle(tooltipElement, {
               display: 'block',
               visibility: 'hidden',
               opacity: 0,
             });
 
-            var off = getOffset(ele);
-            var tooltipBox = getElementBox(tooltipElement);
-            var eleBox = getElementBox(ele);
-
-            var paddingSide = 6; 
-            var arrowHeight = 0; 
-            
-            // change tooltip style
-            ajustTooltipStyle({
-              left: off.left + eleBox.width / 2 + 'px',
-              top: off.top - tooltipBox.height - paddingSide - arrowHeight + 'px',
-              visibility: 'visible',
-              opacity: 1
-            });
+            if (isBottom) {
+              addClass(tooltipElement, 'bottom');
+              ajustTooltipStyleBottom(ele, tooltipElement);
+            } else {
+              ajustTooltipStyleDefault(ele, tooltipElement);
+            }
           }
 
           function mouseleaveHandler (e) {
             e.stopPropagation();
 
-            ajustTooltipStyle({
+            ajustTooltipStyle(tooltipElement, {
               display: 'none',
               visibility: 'hidden',
               opacity: 0
             });
+
+            if (isBottom) {
+              removeClass(tooltipElement, 'bottom');
+            }
           }
         }
       }
@@ -140,6 +131,52 @@
 /* ======================================== 
   FUNCTIONS
   ======================================== */
+function ajustTooltipStyle (tooltipElement, variations) {
+  for (var i in variations) {
+    tooltipElement.style[i] = variations[i];
+  }
+}
+
+/**
+ * for bottom tooltip
+ * @see `ajustTooltipStyleDefault`.
+ */
+function ajustTooltipStyleBottom (tEle, tooltipEle) {
+  var off = getOffset(tEle);
+  // var tooltipBox = getElementBox(tooltipEle);
+  var eleBox = getElementBox(tEle);
+
+  var paddingSide = 6; 
+  var arrowHeight = 7; 
+
+  ajustTooltipStyle(tooltipEle, {
+    left: off.left + eleBox.width / 2 + 'px',
+    top: off.top + eleBox.height + arrowHeight + paddingSide + 'px',
+    visibility: 'visible',
+    opacity: 1
+  });
+}
+
+/**
+ * @param {object} tEle - The element that mouse hover on.
+ * @param {object} tooltipEle - The tooltip element.
+ */
+function ajustTooltipStyleDefault (tEle, tooltipEle) {
+  var off = getOffset(tEle);
+  var tooltipBox = getElementBox(tooltipEle);
+  var eleBox = getElementBox(tEle);
+
+  var paddingSide = 3; 
+  var arrowHeight = 7; 
+
+  // change tooltip style
+  ajustTooltipStyle(tooltipEle, {
+    left: off.left + eleBox.width / 2 + 'px',
+    top: off.top - tooltipBox.height - arrowHeight - paddingSide + 'px',
+    visibility: 'visible',
+    opacity: 1
+  });
+}
 
 function getOffset (ele) {
   return {
@@ -173,7 +210,24 @@ function getElementBox (ele) {
 }
 
 function addClass (ele, klass) {
-  ele.className = klass;
+  var eleKlass = ele.className;
+  if (eleKlass !== '') {
+    klass = klass[0] === ' ' ? klass : ' ' + klass;
+  }
+
+  ele.className = eleKlass + klass;
+}
+
+function removeClass (ele, klass) {
+  var eleKlass = ele.className.replace(/^\s+|\s+$/g, '').split(/\s+/);
+  var sKlass = klass.replace(/^\s+|\s+$/g, '');
+  for (var i = 0; i < eleKlass.length; i++) {
+    if (sKlass === eleKlass[i]) {
+      eleKlass.splice(i, 1);
+      break;
+    }
+  }
+  ele.className = eleKlass.join(' ');
 }
 
 function htmlWrap (strHtml) {
