@@ -79,6 +79,9 @@
           if (tooltipHtml.length) {
             tooltipHtml = tooltipHtml[0];
           }
+          if (!tooltipText && !tooltipHtml) {
+            return;
+          }
 
           // add event
           ele.addEventListener('mouseenter', mouseenterHandler, false);
